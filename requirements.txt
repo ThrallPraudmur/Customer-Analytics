@@ -485,3 +485,4 @@ yellowbrick==1.5
 yfinance==0.2.37
 zict==3.0.0
 zipp==3.17.0
+gunicorn
