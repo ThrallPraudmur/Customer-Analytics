@@ -6,3 +6,4 @@ dash-table==5.0.0
 pandas==1.5.3
 plotly==5.15.0
 gunicorn
+zipp==3.17.0
