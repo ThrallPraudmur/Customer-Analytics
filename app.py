@@ -14,6 +14,7 @@ pie_fig = px.sunburst(df, path=['day', 'time', 'sex'], values='total_bill')
 pie_fig.update_layout(paper_bgcolor = 'rgba(0,0,0,0)')
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
+server = app.server
 
 app.layout = html.Div(
 
