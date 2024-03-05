@@ -8,7 +8,7 @@ pandas
 gunicorn
 ```
 
-`server == app.server`
+`server = app.server`
 
 `$ gunicorn app:server`
 
