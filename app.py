@@ -28,7 +28,7 @@ for feature in geojson_data['features']:
     region = properties['region']
     locations[region] = district
 
-region_data = pd.read_excel('region_data.xlsx')
+region_data = pd.read_excel('data/region_data.xlsx')
 region_data['Округ'] = region_data['Регион регистрации'].replace(locations)
 
 district = {'Адыгея (Республика) (Адыгея)': 'Республика Адыгея',
@@ -54,7 +54,7 @@ region_data['Округ'] = region_data['Регион регистрации'].r
 from map_figure import mapFigure, convert_crs
 russia_map = mapFigure()
 
-regions = pd.read_parquet("russia_regions.parquet")
+regions = pd.read_parquet("data/russia_regions.parquet")
 fo_list = list(regions['federal_district'].unique())
 colors = px.colors.qualitative.Pastel1
 
