@@ -2,6 +2,7 @@ from dash import Dash, html, dcc, callback, Output, Input
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
+import json
 
 df = px.data.gapminder()
 scatter_fig = px.scatter(df, x="gdpPercap", y="lifeExp", animation_frame="year", animation_group="country",
