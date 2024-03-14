@@ -2,18 +2,7 @@ from dash import Dash, html, dcc, callback, Output, Input
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
-
-df = px.data.gapminder()
-scatter_fig = px.scatter(df, x="gdpPercap", y="lifeExp", animation_frame="year", animation_group="country",
-           size="pop", color="continent", hover_name="country",
-           log_x=True, size_max=55, range_x=[100,100000], range_y=[25,90])
-scatter_fig.update_layout(paper_bgcolor = 'rgba(0,0,0,0)', font_color = 'white')
-
-df = px.data.tips()
-pie_fig = px.sunburst(df, path=['day', 'time', 'sex'], values='total_bill')
-pie_fig.update_layout(paper_bgcolor = 'rgba(0,0,0,0)')
-
-
+import json
 from zipfile import ZipFile
 
 with ZipFile('data/russia_regions.zip', 'r') as myzip:
@@ -27,7 +16,7 @@ for feature in geojson_data['features']:
     region = properties['region']
     locations[region] = district
 
-region_data = pd.read_excel('region_data.xlsx')
+region_data = pd.read_excel('data/region_data.xlsx')
 region_data['Округ'] = region_data['Регион регистрации'].replace(locations)
 
 district = {'Адыгея (Республика) (Адыгея)': 'Республика Адыгея',
@@ -53,7 +42,7 @@ region_data['Округ'] = region_data['Регион регистрации'].r
 from map_figure import mapFigure, convert_crs
 russia_map = mapFigure()
 
-regions = pd.read_parquet("russia_regions.parquet")
+regions = pd.read_parquet('data/russia_regions.parquet')
 fo_list = list(regions['federal_district'].unique())
 colors = px.colors.qualitative.Pastel1
 
