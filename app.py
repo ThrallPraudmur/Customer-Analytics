@@ -2,7 +2,6 @@ from dash import Dash, html, dcc, callback, Output, Input
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
-import json
 
 df = px.data.gapminder()
 scatter_fig = px.scatter(df, x="gdpPercap", y="lifeExp", animation_frame="year", animation_group="country",
@@ -28,7 +27,7 @@ for feature in geojson_data['features']:
     region = properties['region']
     locations[region] = district
 
-region_data = pd.read_excel('data/region_data.xlsx')
+region_data = pd.read_excel('region_data.xlsx')
 region_data['Округ'] = region_data['Регион регистрации'].replace(locations)
 
 district = {'Адыгея (Республика) (Адыгея)': 'Республика Адыгея',
@@ -54,7 +53,7 @@ region_data['Округ'] = region_data['Регион регистрации'].r
 from map_figure import mapFigure, convert_crs
 russia_map = mapFigure()
 
-regions = pd.read_parquet("data/russia_regions.parquet")
+regions = pd.read_parquet("russia_regions.parquet")
 fo_list = list(regions['federal_district'].unique())
 colors = px.colors.qualitative.Pastel1
 
@@ -73,7 +72,7 @@ russia_map.update_layout(plot_bgcolor = 'rgba(0,0,0,0)', paper_bgcolor = 'rgba(0
 data_pd = pd.read_excel('data/data_pd.xlsx')
 scatter_fig = px.scatter(data_pd, x='Количество Кредитов', y='Количество Гарантий', animation_frame='Месяц', animation_group='Действие Клиента', 
                          size='Значение', color='Действие Клиента', range_x=[0,5], range_y=[-1,4], size_max=30,
-                         hover_name = 'Действие Клиента',
+                         hover_name = 'Действие Клиента', template = 'plotly_dark',
                          # log_x=True
                         )
 
@@ -82,6 +81,7 @@ scatter_fig.update_traces(marker = dict(size=10, opacity=0.6), selector = dict(m
 scatter_fig.update_layout(margin=dict(t=10, b=10, r=10, l=10))
 scatter_fig.update_layout(paper_bgcolor = 'rgba(0,0,0,0)', font_color = 'white')
 
+# Пирог
 pie_data = pd.read_excel('data/pie_data.xlsx')
 pie_fig = px.sunburst(pie_data, path=['Месяц', 'Продукт', 'Действие Клиента'], values='Значение', color = 'Продукт',
                       color_discrete_sequence = px.colors.sequential.Viridis, branchvalues = 'total')
@@ -93,7 +93,51 @@ pie_fig.update_layout(uniformtext=dict(minsize=10))
 pie_fig.update_layout(margin=dict(t=10, b=10, r=10, l=10))
 pie_fig.update_layout(paper_bgcolor = 'rgba(0,0,0,0)', font_color = 'white')
 
+# Тепловая карта
+merged_df = pd.read_excel('data/merged_df.xlsx')
+heatmap = px.imshow(merged_df.pivot_table(index = 'Продукт', columns = 'Дата комментария', values = 'label'), 
+                color_continuous_midpoint = 0,
+                color_continuous_scale = ['red', 'green'], 
+                template = 'plotly_dark',
+                # origin = 'lower'
+               )
+heatmap.update_layout(margin=dict(t=10, b=10, r=10, l=10))
+heatmap.update_layout(paper_bgcolor = 'rgba(0,0,0,0)', font_color = 'white', plot_bgcolor = 'rgba(0,0,0,0)', coloraxis_showscale = False)
 
+# Комментатор - Навигатор
+category_order = ['Депозит', 'Кредит', 'РКО', 'Лизинг', 
+                  'Cтрахование', 'Факторинг', 'Эквайринг',
+                  'ЗПП', 'Страхование', 'ВЭД', 'Продукты'
+                 ]
+
+data_copy = merged_df.copy()
+data_copy['label'].replace({-500: 500}, inplace = True)
+category_order = ['Депозит', 'Кредит', 'РКО', 'Лизинг', 
+                  # 'Факторинг', 'Эквайринг',
+                  'ЗПП', 'Страхование', 
+                  # 'ВЭД', 
+                  'Продукты', 'Финансирование'
+                 ]
+
+fig = px.bar_polar(data_copy.fillna(0), 
+                   r = 'label', # Values are used to position marks along the radial axis in polar coordinates
+                   theta = 'Продукт', #Values are used to position marks along the angular axis in polar coordinates
+                   category_orders = {'Продукт': category_order},
+                   color = 'Отношение', 
+                   animation_group = 'Отношение', animation_frame = 'Дата комментария',
+                   template = 'plotly_dark',
+                   hover_data = {'Дата комментария': False, 'Отношение': False, 'Продукт': False, 'label': False},
+                   hover_name = 'Комментарий',
+                   # color_discrete_sequence= ['red', 'green'] # В том порядке, что встречается в данных
+                   color_discrete_map = {'Интерес': 'green', 'Не актуально': 'red'}
+                  )
+
+fig['layout'].pop('updatemenus') # optional, drop animation buttons
+fig.update_layout(showlegend = False,
+                  polar = dict(radialaxis = dict(showticklabels = False)),
+                  paper_bgcolor = 'rgba(0,0,0,0)', font_color = 'white')
+
+# Приложение
 app = Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
 server = app.server
 
@@ -104,6 +148,11 @@ app.layout = html.Div([
     html.Div([
         dcc.Graph(figure = scatter_fig),
         dcc.Graph(figure = pie_fig)
+        ], style = {'display': 'flex'})
+,        
+    html.Div([
+        dcc.Graph(figure = heatmap),
+        dcc.Graph(figure = fig)
         ], style = {'display': 'flex'})
 ])
 
