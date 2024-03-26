@@ -1,6 +1,7 @@
 from dash import Dash, html, dcc, callback, Output, Input
 import dash_bootstrap_components as dbc
 import plotly.express as px
+import plotly.graph_objs as go
 import pandas as pd
 import json
 from zipfile import ZipFile
