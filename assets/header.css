@@ -1,0 +1,25 @@
+.app-header {
+	height: 100px;
+	background-color: #F7F7F7;
+	font-style: normal;
+	font-weight: normal;
+	border-bottom: thin lightgrey solid;
+}
+
+.app-referal {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.app-referal p, .app-referal a {
+    margin: 0;
+}
+
+.app-body {
+    margin-left: 80px;
+    margin-right: 80px; 
+    margin-top: 20px;
+}
