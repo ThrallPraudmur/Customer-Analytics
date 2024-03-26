@@ -1,7 +1,6 @@
 from dash import Dash, html, dcc, callback, Output, Input
 import dash_bootstrap_components as dbc
 import plotly.express as px
-import plotly.graph_objs as go
 import pandas as pd
 import json
 from zipfile import ZipFile
@@ -107,6 +106,18 @@ russia_map.update_layout(margin=dict(t=10, b=10, r=10, l=10))
 centro_data = pd.read_excel('data/centro_data.xlsx')
 centro_data['Месяц'] = centro_data['Месяц'].apply(lambda x: x.strftime('%Y-%m-%d'))
 
+funds_data = centro_data[['Месяц', 'Средства на счетах орг., млн.руб._x', 'Средства на счетах орг., млн.руб._y', 'Регион', 'ID']]
+funds_data.rename(columns = {
+    'Средства на счетах орг., млн.руб._x': 'РУБЛИ',
+    'Средства на счетах орг., млн.руб._y': 'ВАЛЮТА'
+}, inplace = True)
+
+dep_data = centro_data[['Месяц',  'Депозиты юр.лиц, млн.руб._x', 'Депозиты юр.лиц, млн.руб._y', 'Регион', 'ID']]
+dep_data.rename(columns = {
+    'Депозиты юр.лиц, млн.руб._x': 'РУБЛИ',
+    'Депозиты юр.лиц, млн.руб._y': 'ВАЛЮТА'
+}, inplace = True)
+
 dep_map = px.choropleth_mapbox(dep_data, geojson = counties, locations = 'ID', featureidkey = 'id', color = 'РУБЛИ', mapbox_style = 'carto-positron',
                                zoom = 4, center = {'lat': 55.45, 'lon': 37.36}, animation_frame = 'Месяц', color_continuous_scale = 'RdYlGn',
                                opacity = 0.7, template = 'plotly_dark',
@@ -141,18 +152,6 @@ currency_selector = dcc.Dropdown(
 product_selector = dcc.Dropdown(
     ['СРЕДСТВА НА СЧЕТАХ', 'ДЕПОЗИТЫ'], 'СРЕДСТВА НА СЧЕТАХ', id = 'product-selector'
 )
-
-funds_data = centro_data[['Месяц', 'Средства на счетах орг., млн.руб._x', 'Средства на счетах орг., млн.руб._y', 'Регион', 'ID']]
-funds_data.rename(columns = {
-    'Средства на счетах орг., млн.руб._x': 'РУБЛИ',
-    'Средства на счетах орг., млн.руб._y': 'ВАЛЮТА'
-}, inplace = True)
-
-dep_data = centro_data[['Месяц',  'Депозиты юр.лиц, млн.руб._x', 'Депозиты юр.лиц, млн.руб._y', 'Регион', 'ID']]
-dep_data.rename(columns = {
-    'Депозиты юр.лиц, млн.руб._x': 'РУБЛИ',
-    'Депозиты юр.лиц, млн.руб._y': 'ВАЛЮТА'
-}, inplace = True)
 
 nash_content = dbc.Row([
         dbc.Col([
