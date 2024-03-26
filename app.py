@@ -197,6 +197,18 @@ geo_content = [
                 label = 'Наши Клиенты')
     ]),
 ]
+# Cкаттер на переделать
+data_pd = pd.read_excel('data/data_pd.xlsx')
+scatter_fig = px.scatter(data_pd, x='Количество Кредитов', y='Количество Гарантий', animation_frame='Месяц', animation_group='Действие Клиента', 
+                         size='Значение', color='Действие Клиента', range_x=[0,5], range_y=[-1,4], size_max=30,
+                         hover_name = 'Действие Клиента', template = 'plotly_dark',
+                         # log_x=True
+                        )
+
+scatter_fig['layout'].pop('updatemenus') # optional, drop animation buttons
+scatter_fig.update_traces(marker = dict(size=10, opacity=0.6), selector = dict(mode = 'markers'))
+scatter_fig.update_layout(margin=dict(t=10, b=10, r=10, l=10))
+scatter_fig.update_layout(paper_bgcolor = 'rgba(0,0,0,0)', font_color = 'white')
 
 # Пирог
 pie_data = pd.read_excel('data/pie_data.xlsx')
