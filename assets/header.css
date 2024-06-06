@@ -1,0 +1,81 @@
+.app-header {
+	height: 150px;
+#	background-color: #21212D;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.app-referal {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.app-referal p, .app-referal a {
+    margin: 0;
+}
+
+.app-body {
+    margin-left: 80px;
+    margin-right: 80px; 
+    margin-top: 20px;
+    background-color: #121320;
+}
+
+.offcanvas {
+    background-color: rgba(66, 69, 117, 1); /* Добавлено значение альфа-канала 1 для полной непрозрачности */
+	font-family: 'Century Gothic';
+	font-weight: lighter;
+	font-style: lighter;
+	color: white;
+    width: 600px;	
+	border: 10px solid #75425e;
+}
+
+.offcanvas-body {
+#    border: 10px ridge #75425e; /* Установите желаемый стиль и цвет границы */
+}
+
+.custom-popover {
+#	background-color: rgba(66, 69, 117, 0.5);
+	background-color: rgba(66, 69, 117);	
+#	max-width: 1600px;
+#	height: 80vh;
+	border-color: #75425e;
+	border-width: 5px;
+	border-style: ridge;
+}
+
+.custom-popover .ag-root {
+    background-color: rgba(66, 69, 117, 0.5) !important;
+}
+
+.ag-theme-balham-dark .ag-cell {
+	background-color: rgba(66, 69, 117, 0.5);
+    color: white;
+    border-right: 2px solid #75425e; /* Изменение цвета границы */
+    border-bottom: 2px solid #75425e;
+    border-top: 2px solid #75425e;
+    border-left: 2px solid #75425e;
+}
+
+.ag-theme-balham-dark .ag-header-cell {
+	background-color: rgba(66, 69, 117, 0.5); /* Ваш цвет фона */
+    color: white; /* Ваш цвет текста */
+#    border-right: 2px solid #75425e; /* Изменение цвета границы */
+#    border-bottom: 2px solid #75425e;
+    border-top: 2px solid #75425e;
+    border-left: 2px solid #75425e;
+}
+
+.ag-theme-balham-dark .ag-root::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px; /* Ширина границы */
+    background-color: #75425e; /* Цвет границы */
+}

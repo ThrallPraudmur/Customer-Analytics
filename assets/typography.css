@@ -1,0 +1,32 @@
+body {
+	font-family: 'Century Gothic';
+	font-weight: normal;
+	font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	font-family: 'Century Gothic';
+	font-weight: lighter;
+	font-style: lighter;
+	color: white;
+}
+
+.Dropdown-Payment .Select-control {
+    background-color: white;
+}
+
+.Dropdown-Payment .Select-value-label {
+    color: black !important;
+}
+
+.Dropdown-Payment .Select--single > .Select-control .Select-value, .Select-placeholder {
+    border: 1px solid #75425e;
+    border-radius: 4px;
+}
+
+
+/* dropdown menu options */
+.Dropdown-Payment .VirtualizedSelectOption {
+    background-color: white;
+    color: black;
+ }
