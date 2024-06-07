@@ -26,10 +26,17 @@ https://github.com/ThrallPraudmur/Transformers/blob/main/BERT-fine-tuning.ipynb
 This video is too big. Try again with a file size less than 10 Mb.
 
 ## Запуск вебинтерфейса
+
+```python
+if __name__ == '__main__':
+    app.run_server(debug=False, host='0.0.0.0', port=8050)
+```
+
 ```python
 server = app.server
 $ gunicorn app:server
 ```
+
 ## Пример работы вебинтерфейса
 https://github.com/ThrallPraudmur/Dash-Application/assets/106926620/2eedcd95-7793-4e21-8105-bdd119a8fe48
 ## Решение
