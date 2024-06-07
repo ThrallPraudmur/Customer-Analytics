@@ -16,3 +16,9 @@ gunicorn
 <video src='your URL here' width=180/>
 
 This video is too big. Try again with a file size less than 10 Mb.
+
+
+
+https://github.com/ThrallPraudmur/Dash-Application/assets/106926620/2eedcd95-7793-4e21-8105-bdd119a8fe48
+
+
