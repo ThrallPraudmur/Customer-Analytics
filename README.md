@@ -1,6 +1,8 @@
 # Дашборд
 ## Задача
 ## Запуск обучения
+https://spacy.io/api/entityrecognizer
+https://github.com/ThrallPraudmur/Transformers/blob/main/BERT-fine-tuning.ipynb
 ## Установка зависимостей
 Используемый стек
 * `Dash`
