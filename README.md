@@ -3,8 +3,7 @@
 ## Запуск обучения
 ## Установка зависимостей
 Используемый стек
-* `server = app.server`
-* `$ gunicorn app:server`
+*``
 
 Описание обучения можно посмотреть здесь </br>
 А зедсь
@@ -17,8 +16,12 @@
 
 This video is too big. Try again with a file size less than 10 Mb.
 
-
-
+## Запуск вебинтерфейса
+```python
+server = app.server
+$ gunicorn app:server
+```
+## Пример работы вебинтерфейса
 https://github.com/ThrallPraudmur/Dash-Application/assets/106926620/2eedcd95-7793-4e21-8105-bdd119a8fe48
 
 
