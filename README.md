@@ -5,6 +5,8 @@
 Используемый стек
 * `server = app.server`
 * `$ gunicorn app:server`
+Описание обучения можно посмотреть здесь
+А зедсь
 
 [Imgur](https://img.doerig.dev/)
 
