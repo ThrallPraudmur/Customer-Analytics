@@ -11,7 +11,7 @@
 * `Dash`
 * `PyTorch`
 * `Plotly`
-* `Spacy`
+* `spaCy`
 * `Transformers`
 ## Запуск вебинтерфейса
 
